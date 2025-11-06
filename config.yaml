@@ -1,0 +1,40 @@
+# Configuration for Screw Localization System
+
+# Detection parameters
+detection:
+  min_circle_radius: 0.5  # mm - minimum circle radius for fastener head detection
+  max_circle_radius: 5.0  # mm - maximum circle radius
+  thread_pattern_threshold: 0.3  # mm - distance for parallel lines (thread pattern)
+  min_confidence: 0.5  # minimum confidence for detection acceptance
+  max_lines_for_thread_detection: 5000  # Limit lines checked for thread patterns (prevents O(n²) explosion)
+  enable_thread_detection: true  # Set to false to skip thread pattern detection (faster but less accurate)
+  
+# LLM settings
+llm:
+  provider: "openai"  # or "anthropic"
+  model: "gpt-4-turbo-preview"  # or "claude-3-opus-20240229"
+  temperature: 0.1
+  max_tokens: 4000
+
+# Part classes
+classes:
+  - screw
+  - rivet
+  - anchor
+  - washer
+  - nut
+
+# Spec fields to extract
+spec_fields:
+  - thread
+  - length
+  - head_type
+  - material
+  - brand_code
+
+# Accuracy targets
+accuracy:
+  target_item_level: 0.95
+  low_confidence_threshold: 0.7
+  review_percentage: 0.1  # 10% of items should be flagged for review
+
